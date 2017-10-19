@@ -40,8 +40,8 @@
 
 #include <QtGui/QApplication>
 #include <QtGui/QDesktopWidget>
-#include <QtDeclarative/QDeclarativeView>
-#include <QtDeclarative/QDeclarativeEngine>
+#include <QQuickView>
+#include <QQmlEngine>
 
 #include <QZXing.h>
 
@@ -71,12 +71,12 @@ int main(int argc, char *argv[])
 
     QApplication application(argc, argv);
     const QString mainQmlApp = QLatin1String("qrc:/declarative-camera.qml");
-    QDeclarativeView view;
+    QQuickView view;
 #if !defined(QT_NO_OPENGL) && !defined(Q_WS_MAEMO_5) && !defined(Q_WS_S60)
-    view.setViewport(new QGLWidget);
+    //view.setViewport(new QGLWidget);
 #endif
     view.setSource(QUrl(mainQmlApp));
-    view.setResizeMode(QDeclarativeView::SizeRootObjectToView);
+    view.setResizeMode(QQuickView::SizeRootObjectToView);
     // Qt.quit() called in embedded .qml by default only emits
     // quit() signal, so do this (optionally use Qt.exit()).
     QObject::connect(view.engine(), SIGNAL(quit()), qApp, SLOT(quit()));
